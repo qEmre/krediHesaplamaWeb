@@ -1,0 +1,82 @@
+﻿@model List<KrediBilgileri>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            display: none;
+        }
+
+        .table-container {
+            margin: 15px;
+        }
+
+        .table {
+            max-width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            border-bottom: 1px solid #ddd;
+            padding: 2px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .table td a {
+            color: #000;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .table td a:hover {
+            color: #007BFF;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 0;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <h3>Kredi Geri Ödeme Planınız</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Taksit Tarihi</th>
+                    <th>Gün Aralığı</th>
+                    <th>Taksit Tutarı</th>
+                    <th>Anapara Tutarı</th>
+                    <th>Faiz Tutarı</th>
+                    <th>KKDF Tutarı</th>
+                    <th>Kalan Anapara</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var kredi in Model.OrderBy(k => k.taksitTarihi))
+                {
+                    <tr>
+                        <td>@kredi.taksitTarihi.ToString("dd MMMM yyyy")</td>
+                        <td>@kredi.gunAraligi.ToString()</td>
+                        <td><span style="position:relative;">₺&nbsp;</span>@string.Format("{0:#,##0.00}", kredi.taksitTutari)</td>
+                        <td><span style="position:relative;">₺&nbsp;</span>@string.Format("{0:#,##0.00}", kredi.guncelAnapara)</td>
+                        <td><span style="position:relative;">₺&nbsp;</span>@string.Format("{0:#,##0.00}", kredi.faizTutari)</td>
+                        <td><span style="position:relative;">₺&nbsp;</span>@string.Format("{0:#,##0.00}", kredi.kkdfTutari)</td>
+                        <td><span style="position:relative;">₺&nbsp;</span>@string.Format("{0:#,##0.00}", kredi.guncelKalanAnapara)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
